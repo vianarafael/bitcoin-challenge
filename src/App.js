@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import styled from "styled-components";
 
 import Graphs from "./components/Graphs";
 import News from "./components/News";
 
 import { setNews } from "./redux/news/news.action";
+
+const Container = styled.main`
+  display: flex;
+  align-content: space-around;
+`;
 
 const App = ({ setNews }) => {
   const [data, setData] = useState([]);
@@ -33,10 +39,17 @@ const App = ({ setNews }) => {
     };
 
     const getPriceData = async () => {
-      const graph = await axios.get(
+      let graph = await axios.get(
         "https://index-api.bitcoin.com/api/v0/cash/history"
       );
-      setData(graph.data);
+      graph = graph.data.map((item) => {
+        let date = new Date(item[0]);
+        date = date.getMonth() + 1 + "/" + date.getDate();
+        let price = item[1];
+
+        return { date, price };
+      });
+      setData(graph);
 
       const priceData = await axios.get(
         "https://index-api.bitcoin.com/api/v0/cash/price/usd"
@@ -53,8 +66,10 @@ const App = ({ setNews }) => {
     <main>
       <h1>BCH</h1>
       <h2>Current Price: ${cur}</h2>
-      <Graphs data={data} />
-      <News />
+      <Container>
+        <Graphs data={data} />
+        <News />
+      </Container>
     </main>
   );
 };
