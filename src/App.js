@@ -45,6 +45,7 @@ const App = ({ setNews }) => {
       setCur(priceData.data.price);
     };
 
+    // make this update without the need for a refresh
     getPriceData();
     getNews();
   }, []);
