@@ -1,4 +1,5 @@
-const News = () => {
+const News = ({ feed }) => {
+  console.log(feed);
   return <div>News</div>;
 };
 
