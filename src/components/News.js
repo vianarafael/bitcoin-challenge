@@ -1,10 +1,21 @@
 import { connect } from "react-redux";
-import newsSelector from "../redux/news/news.selector";
-// import { createStructuredSelector } from "reselect";
+import styled from "styled-components";
+
+const NewsContainer = styled.aside`
+  h2 {
+    font-size: 1rem;
+    width: 60%;
+  }
+
+  img {
+    width: 60%;
+    height: 8rem;
+  }
+`;
 
 const News = ({ news }) => {
   return (
-    <aside>
+    <NewsContainer>
       {news
         ? news.map((item) => (
             <article key={item.id}>
@@ -14,7 +25,7 @@ const News = ({ news }) => {
             </article>
           ))
         : ""}
-    </aside>
+    </NewsContainer>
   );
 };
 

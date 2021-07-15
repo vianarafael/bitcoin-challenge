@@ -11,8 +11,35 @@ const MainGraph = styled.div`
 
 const Graphs = ({ data }) => {
   const [hourly, setHourly] = useState([]);
-
   const [graphDisplay, setGraphDisplay] = useState("month");
+
+  useEffect(() => {
+    const day = [];
+    const promises = [];
+    for (let i = 1; i < 24; i++) {
+      if (data[0]) {
+        let date = new Date(data[0].iso);
+        date = date.setHours(date.getHours() - i);
+        date = new Date(date);
+        promises.push(
+          axios.get(
+            `https://index-api.bitcoin.com/api/v0/cash/lookup?time=${date.toISOString()}`
+          )
+        );
+      }
+    }
+    Promise.all(promises)
+      .then((raw) =>
+        raw.forEach((item) => {
+          const date = new Date(item.data.lookup.time.iso);
+          day.push({
+            date: date.getHours(),
+            price: item.data.lookup.price,
+          });
+        })
+      )
+      .then(() => setHourly(day));
+  }, [data]);
 
   let month = [];
 
@@ -32,11 +59,18 @@ const Graphs = ({ data }) => {
     if (graphDisplay === "week") return week;
   };
 
+  const handleRange = () => {
+    // not the best solution - just trying to make the graph more interesting
+    if (graphDisplay === "month") return [40000, 70000];
+    if (graphDisplay === "day") return [46300, 47000];
+    if (graphDisplay === "week") return [45000, 55000];
+  };
+
   return (
     <MainGraph aspect={3}>
-      <LineChart width={600} height={400} data={handleDisplay()}>
+      <LineChart width={800} height={600} data={handleDisplay()}>
         <XAxis dataKey="date" />
-        <YAxis />
+        <YAxis type="number" domain={handleRange()} />
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
         <Line type="monotone" dataKey="price" stroke="#8884d8" />
       </LineChart>

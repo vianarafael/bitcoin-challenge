@@ -47,7 +47,7 @@ const App = ({ setNews }) => {
         date = date.getMonth() + 1 + "/" + date.getDate();
         let price = item[1];
 
-        return { date, price };
+        return { date, price, iso: item[0] };
       });
       setData(graph);
 
@@ -61,10 +61,9 @@ const App = ({ setNews }) => {
     // make this update without the need for a refresh
     getPriceData();
     getNews();
-  }, []);
+  }, [setNews]);
   return (
     <main>
-      <h1>BCH</h1>
       <h2>Current Price: ${cur}</h2>
       <Container>
         <Graphs data={data} />
