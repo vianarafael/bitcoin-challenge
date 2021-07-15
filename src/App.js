@@ -16,12 +16,13 @@ const App = () => {
       const items = data.querySelectorAll("item");
       const news = [];
       for (let i = 0; i < 4; i++) {
+        const id = i;
         const title = items[i].querySelector("title").innerHTML;
         const link = items[i].querySelector("link").innerHTML;
         const description = items[i].querySelector("description").innerHTML;
         const image = getImage(description);
         const date = items[i].querySelector("pubDate").innerHTML;
-        news.push({ title, link, image, date });
+        news.push({ id, title, link, image, date });
       }
       setFeed(news);
     };
