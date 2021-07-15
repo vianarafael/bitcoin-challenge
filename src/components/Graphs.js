@@ -1,6 +1,8 @@
 import { LineChart, XAxis, YAxis, CartesianGrid, Line } from "recharts";
 import styled from "styled-components";
 
+import Button from "./Button";
+
 const MainGraph = styled.div``;
 
 const mockData = [
@@ -58,6 +60,9 @@ const Graphs = () => {
         <Line type="monotone" dataKey="uv" stroke="#8884d8" />
         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
       </LineChart>
+      <Button>24 hours</Button>
+      <Button>7 days</Button>
+      <Button>1 month</Button>
     </MainGraph>
   );
 };
