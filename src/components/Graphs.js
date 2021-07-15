@@ -50,7 +50,8 @@ const mockData = [
   },
 ];
 
-const Graphs = () => {
+const Graphs = ({ data }) => {
+  console.log(data);
   return (
     <MainGraph>
       <LineChart width={500} height={300} data={mockData}>

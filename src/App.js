@@ -8,7 +8,8 @@ import News from "./components/News";
 import { setNews } from "./redux/news/news.action";
 
 const App = ({ setNews }) => {
-  const [feed, setFeed] = useState([]);
+  const [data, setData] = useState([]);
+  const [cur, setCur] = useState([]);
   useEffect(() => {
     const getNews = async () => {
       const rawNews = await axios.get("https://news.bitcoin.com/feed/");
@@ -27,16 +28,31 @@ const App = ({ setNews }) => {
         const date = items[i].querySelector("pubDate").innerHTML;
         news.push({ id, title, link, image, date });
       }
-      // setFeed(news);
+
       setNews(news);
     };
 
+    const getPriceData = async () => {
+      const graph = await axios.get(
+        "https://index-api.bitcoin.com/api/v0/cash/history"
+      );
+      setData(graph.data);
+
+      const priceData = await axios.get(
+        "https://index-api.bitcoin.com/api/v0/cash/price/usd"
+      );
+
+      setCur(priceData.data.price);
+    };
+
+    getPriceData();
     getNews();
   }, []);
   return (
     <main>
       <h1>BCH</h1>
-      <Graphs />
+      <h2>Current Price: ${cur}</h2>
+      <Graphs data={data} />
       <News />
     </main>
   );
