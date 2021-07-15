@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 
 import Graphs from "./components/Graphs";
 import News from "./components/News";
 
-const App = () => {
+import { setNews } from "./redux/news/news.action";
+
+const App = ({ setNews }) => {
   const [feed, setFeed] = useState([]);
   useEffect(() => {
     const getNews = async () => {
@@ -24,7 +27,8 @@ const App = () => {
         const date = items[i].querySelector("pubDate").innerHTML;
         news.push({ id, title, link, image, date });
       }
-      setFeed(news);
+      // setFeed(news);
+      setNews(news);
     };
 
     getNews();
@@ -33,7 +37,7 @@ const App = () => {
     <main>
       <h1>BCH</h1>
       <Graphs />
-      <News feed={feed} />
+      <News />
     </main>
   );
 };
@@ -51,4 +55,8 @@ const getImage = (str) => {
   return image;
 };
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setNews: (news) => dispatch(setNews(news)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
