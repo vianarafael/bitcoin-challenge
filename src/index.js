@@ -7,12 +7,18 @@ import App from "./App";
 import store from "./redux/store";
 
 const GlobalStyle = createGlobalStyle`
-  // Reset CSS
 
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+    body {
+    font-family: Roboto, sans-serif;
+    background-color: #f1f7fc; 
   }
 
 `;

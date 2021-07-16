@@ -4,7 +4,12 @@ import axios from "axios";
 import Button from "./Button";
 
 import { useState, useEffect } from "react";
-
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-right: 5rem;
+  margin-top: 2rem;
+`;
 const MainGraph = styled.div`
   width: 100%;
 `;
@@ -74,9 +79,17 @@ const Graphs = ({ data }) => {
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
         <Line type="monotone" dataKey="price" stroke="#8884d8" />
       </LineChart>
-      <Button onClick={() => setGraphDisplay("day")}>24 hours</Button>
-      <Button onClick={() => setGraphDisplay("week")}>7 days</Button>
-      <Button onClick={() => setGraphDisplay("month")}>1 month</Button>
+      <Buttons>
+        <Button day onClick={() => setGraphDisplay("day")}>
+          24 hours
+        </Button>
+        <Button week onClick={() => setGraphDisplay("week")}>
+          7 days
+        </Button>
+        <Button month onClick={() => setGraphDisplay("month")}>
+          1 month
+        </Button>
+      </Buttons>
     </MainGraph>
   );
 };
