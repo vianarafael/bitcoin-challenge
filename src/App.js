@@ -8,13 +8,14 @@ import Graphs from "./components/Graphs";
 import News from "./components/News";
 
 import { setNews } from "./redux/news/news.action";
+import { setCurrentPrice } from "./redux/current-price/currentPrice.action";
 
 const Container = styled.main`
   display: flex;
   align-content: space-around;
 `;
 
-const App = ({ setNews }) => {
+const App = ({ setNews, setCurrentPrice }) => {
   const [data, setData] = useState([]);
   const [cur, setCur] = useState([]);
   useEffect(() => {
@@ -56,7 +57,7 @@ const App = ({ setNews }) => {
         "https://index-api.bitcoin.com/api/v0/cash/price/usd"
       );
 
-      setCur(priceData.data.price);
+      setCurrentPrice(priceData.data.price);
     };
 
     // make this update without the need for a refresh
@@ -65,7 +66,6 @@ const App = ({ setNews }) => {
   }, [setNews]);
   return (
     <main>
-      {/* <h2>Current Price: ${cur}</h2> */}
       <Header />
       <Container>
         <Graphs data={data} />
@@ -90,6 +90,7 @@ const getImage = (str) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setNews: (news) => dispatch(setNews(news)),
+  setCurrentPrice: (currentPrice) => dispatch(setCurrentPrice(currentPrice)),
 });
 
 export default connect(null, mapDispatchToProps)(App);
