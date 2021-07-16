@@ -18,7 +18,6 @@ const MainGraph = styled.div`
 `;
 
 const Graphs = ({ history }) => {
-  console.log(window.screen.width);
   const [hourly, setHourly] = useState([]);
   const [graphDisplay, setGraphDisplay] = useState("month");
   useEffect(() => {

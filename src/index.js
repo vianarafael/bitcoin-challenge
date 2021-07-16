@@ -14,10 +14,8 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-
     body {
-    font-family: Roboto, sans-serif;
+    font-family:  sans-serif;
     background-color: #f1f7fc;
     padding: 12px 50px 8px;
   }

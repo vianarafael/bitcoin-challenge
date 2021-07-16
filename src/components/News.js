@@ -2,6 +2,9 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const NewsContainer = styled.aside`
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+  font-family: Roboto, sans-serif;
+
   @media (max-device-width: 480px) {
     article {
       margin: 1rem 0.5rem;
