@@ -2,27 +2,34 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin: 3rem;
-
-  div {
-    width: 100%;
-    display: flex;
-    justify-content: left;
-  }
-
-  img {
-    height: 22px;
-  }
-
   h2 {
-    height: 22px;
     color: #767c82;
+    margin: 1rem;
+  }
+
+  @media (min-width: 860px) {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    margin: 3rem;
+
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: left;
+    }
+
+    img {
+      height: 22px;
+    }
+
+    h2 {
+      height: 22px;
+      color: #767c82;
+    }
   }
 `;
 

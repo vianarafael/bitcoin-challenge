@@ -6,16 +6,19 @@ import { connect } from "react-redux";
 
 import { useState, useEffect } from "react";
 const Buttons = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-right: 5rem;
-  margin-top: 2rem;
+  @media (min-width: 860px) {
+    display: flex;
+    justify-content: space-around;
+    margin-right: 5rem;
+    margin-top: 2rem;
+  }
 `;
 const MainGraph = styled.div`
   width: 100%;
 `;
 
 const Graphs = ({ history }) => {
+  console.log(window.screen.width);
   const [hourly, setHourly] = useState([]);
   const [graphDisplay, setGraphDisplay] = useState("month");
   useEffect(() => {
@@ -73,7 +76,11 @@ const Graphs = ({ history }) => {
 
   return (
     <MainGraph aspect={3}>
-      <LineChart width={800} height={500} data={handleDisplay()}>
+      <LineChart
+        width={window.screen.width >= 860 ? 800 : 350}
+        height={window.screen.width >= 860 ? 500 : 200}
+        data={handleDisplay()}
+      >
         <XAxis dataKey="date" />
         <YAxis type="number" domain={handleRange()} />
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

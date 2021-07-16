@@ -12,8 +12,13 @@ import { setCurrentPrice } from "./redux/current-price/currentPrice.action";
 import { setHistory } from "./redux/history/history.action";
 
 const Container = styled.main`
-  display: flex;
-  align-content: space-around;
+  @media (max-device-width: 480px) {
+    width: 375px;
+  }
+  @media (min-width: 860px) {
+    display: flex;
+    align-content: space-around;
+  }
 `;
 
 const App = ({ setNews, setCurrentPrice, setHistory }) => {
