@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
+import Header from "./components/Header";
 import Graphs from "./components/Graphs";
 import News from "./components/News";
 
@@ -64,7 +65,8 @@ const App = ({ setNews }) => {
   }, [setNews]);
   return (
     <main>
-      <h2>Current Price: ${cur}</h2>
+      {/* <h2>Current Price: ${cur}</h2> */}
+      <Header />
       <Container>
         <Graphs data={data} />
         <News />

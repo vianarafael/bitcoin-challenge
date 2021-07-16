@@ -73,7 +73,7 @@ const Graphs = ({ data }) => {
 
   return (
     <MainGraph aspect={3}>
-      <LineChart width={800} height={600} data={handleDisplay()}>
+      <LineChart width={800} height={500} data={handleDisplay()}>
         <XAxis dataKey="date" />
         <YAxis type="number" domain={handleRange()} />
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
