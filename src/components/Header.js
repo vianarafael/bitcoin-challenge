@@ -6,9 +6,9 @@ const HeaderContainer = styled.header`
   text-align: center;
   justify-content: center;
   align-items: center;
-  padding: 12px 50px 8px;
+
   width: 100%;
-  margin: 1rem auto 3rem;
+  margin: 3rem;
 
   div {
     width: 100%;
@@ -22,6 +22,7 @@ const HeaderContainer = styled.header`
 
   h2 {
     height: 22px;
+    color: #767c82;
   }
 `;
 

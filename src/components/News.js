@@ -2,14 +2,25 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const NewsContainer = styled.aside`
+  article {
+    text-align: center;
+  }
+
   h2 {
     font-size: 1rem;
     width: 60%;
+    margin: 8px auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(91, 102, 124);
   }
 
   img {
-    width: 60%;
-    height: 8rem;
+    width: 45%;
+    height: 5.5rem;
+    border-radius: 3px;
   }
 `;
 
