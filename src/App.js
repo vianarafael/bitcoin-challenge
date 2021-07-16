@@ -9,15 +9,14 @@ import News from "./components/News";
 
 import { setNews } from "./redux/news/news.action";
 import { setCurrentPrice } from "./redux/current-price/currentPrice.action";
+import { setHistory } from "./redux/history/history.action";
 
 const Container = styled.main`
   display: flex;
   align-content: space-around;
 `;
 
-const App = ({ setNews, setCurrentPrice }) => {
-  const [data, setData] = useState([]);
-  const [cur, setCur] = useState([]);
+const App = ({ setNews, setCurrentPrice, setHistory }) => {
   useEffect(() => {
     const getNews = async () => {
       const rawNews = await axios.get("https://news.bitcoin.com/feed/");
@@ -51,7 +50,7 @@ const App = ({ setNews, setCurrentPrice }) => {
 
         return { date, price, iso: item[0] };
       });
-      setData(graph);
+      setHistory(graph);
 
       const priceData = await axios.get(
         "https://index-api.bitcoin.com/api/v0/cash/price/usd"
@@ -63,12 +62,12 @@ const App = ({ setNews, setCurrentPrice }) => {
     // make this update without the need for a refresh
     getPriceData();
     getNews();
-  }, [setNews]);
+  }, [setNews, setCurrentPrice, setHistory]);
   return (
     <main>
       <Header />
       <Container>
-        <Graphs data={data} />
+        <Graphs />
         <News />
       </Container>
     </main>
@@ -91,6 +90,7 @@ const getImage = (str) => {
 const mapDispatchToProps = (dispatch) => ({
   setNews: (news) => dispatch(setNews(news)),
   setCurrentPrice: (currentPrice) => dispatch(setCurrentPrice(currentPrice)),
+  setHistory: (history) => dispatch(setHistory(history)),
 });
 
 export default connect(null, mapDispatchToProps)(App);

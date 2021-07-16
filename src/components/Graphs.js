@@ -2,6 +2,7 @@ import { LineChart, XAxis, YAxis, CartesianGrid, Line } from "recharts";
 import styled from "styled-components";
 import axios from "axios";
 import Button from "./Button";
+import { connect } from "react-redux";
 
 import { useState, useEffect } from "react";
 const Buttons = styled.div`
@@ -14,16 +15,15 @@ const MainGraph = styled.div`
   width: 100%;
 `;
 
-const Graphs = ({ data }) => {
+const Graphs = ({ history }) => {
   const [hourly, setHourly] = useState([]);
   const [graphDisplay, setGraphDisplay] = useState("month");
-
   useEffect(() => {
     const day = [];
     const promises = [];
-    for (let i = 1; i < 24; i++) {
-      if (data[0]) {
-        let date = new Date(data[0].iso);
+    if (history) {
+      for (let i = 1; i < 24; i++) {
+        let date = new Date(history[0].iso);
         date = date.setHours(date.getHours() - i);
         date = new Date(date);
         promises.push(
@@ -32,30 +32,30 @@ const Graphs = ({ data }) => {
           )
         );
       }
+      Promise.all(promises)
+        .then((raw) =>
+          raw.forEach((item) => {
+            const date = new Date(item.data.lookup.time.iso);
+            day.push({
+              date: date.getHours(),
+              price: item.data.lookup.price,
+            });
+          })
+        )
+        .then(() => setHourly(day));
     }
-    Promise.all(promises)
-      .then((raw) =>
-        raw.forEach((item) => {
-          const date = new Date(item.data.lookup.time.iso);
-          day.push({
-            date: date.getHours(),
-            price: item.data.lookup.price,
-          });
-        })
-      )
-      .then(() => setHourly(day));
-  }, [data]);
+  }, [history]);
 
   let month = [];
-
-  for (let i = 0; i < 30; i++) {
-    month.push(data[i]);
-  }
-
   let week = [];
+  if (history) {
+    for (let i = 0; i < 30; i++) {
+      month.push(history[i]);
+    }
 
-  for (let i = 0; i < 7; i++) {
-    week.push(data[i]);
+    for (let i = 0; i < 7; i++) {
+      week.push(history[i]);
+    }
   }
 
   const handleDisplay = () => {
@@ -94,4 +94,9 @@ const Graphs = ({ data }) => {
   );
 };
 
-export default Graphs;
+const mapStateToProps = (state) => {
+  const { history } = state;
+  return history;
+};
+
+export default connect(mapStateToProps)(Graphs);
