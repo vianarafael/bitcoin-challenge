@@ -12,5 +12,5 @@ Live Demo: https://bitcoin-challenge.vercel.app/
 
 ## Devices considered when styling
 
-13-inch screen laptop
-iPhoneX
+1. 13-inch screen laptop
+2. iPhoneX
